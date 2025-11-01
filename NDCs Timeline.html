@@ -1,0 +1,614 @@
+# Horizontal Paris Agreement Timeline
+
+Here's a horizontal timeline perfect for presentations:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paris Agreement Timeline - Horizontal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #1e3c72 0%, #2a5298 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 60px;
+            font-size: 2.8rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .timeline-container {
+            position: relative;
+            overflow-x: auto;
+            overflow-y: visible;
+            padding: 40px 20px 20px;
+        }
+
+        .timeline {
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            position: relative;
+            min-width: 900px;
+            padding: 0 30px;
+        }
+
+        /* Horizontal line */
+        .timeline::before {
+            content: '';
+            position: absolute;
+            top: 50%;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, 
+                rgba(255, 255, 255, 0.3) 0%, 
+                rgba(255, 255, 255, 0.8) 50%, 
+                rgba(255, 255, 255, 0.3) 100%);
+            transform: translateY(-50%);
+            z-index: 0;
+        }
+
+        .timeline-item {
+            position: relative;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            flex: 1;
+            z-index: 1;
+        }
+
+        /* Timeline dot */
+        .timeline-dot {
+            width: 24px;
+            height: 24px;
+            background: white;
+            border: 5px solid #4CAF50;
+            border-radius: 50%;
+            position: relative;
+            z-index: 2;
+            box-shadow: 0 0 0 6px rgba(76, 175, 80, 0.2),
+                        0 4px 12px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.3);
+            box-shadow: 0 0 0 10px rgba(76, 175, 80, 0.3),
+                        0 6px 20px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Alternating content position */
+        .timeline-item:nth-child(odd) .timeline-content {
+            top: -180px;
+        }
+
+        .timeline-item:nth-child(even) .timeline-content {
+            top: 60px;
+        }
+
+        .timeline-content {
+            position: absolute;
+            background: white;
+            padding: 25px 20px;
+            border-radius: 12px;
+            width: 180px;
+            box-shadow: 0 8px 24px rgba(0, 0, 0, 0.3);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 12px 32px rgba(0, 0, 0, 0.4);
+        }
+
+        /* Connector line from dot to content */
+        .timeline-item:nth-child(odd) .timeline-content::after {
+            content: '';
+            position: absolute;
+            bottom: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .timeline-item:nth-child(even) .timeline-content::after {
+            content: '';
+            position: absolute;
+            top: -20px;
+            left: 50%;
+            transform: translateX(-50%);
+            width: 2px;
+            height: 20px;
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        .timeline-year {
+            font-size: 1.5rem;
+            font-weight: bold;
+            color: #1e3c72;
+            margin-bottom: 8px;
+            text-align: center;
+        }
+
+        .timeline-title {
+            font-size: 0.95rem;
+            color: #555;
+            font-weight: 600;
+            line-height: 1.4;
+            text-align: center;
+        }
+
+        /* Responsive Design */
+        @media (max-width: 1024px) {
+            .timeline {
+                min-width: 800px;
+            }
+
+            .timeline-content {
+                width: 160px;
+                padding: 20px 15px;
+            }
+
+            .timeline-year {
+                font-size: 1.3rem;
+            }
+
+            .timeline-title {
+                font-size: 0.85rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 40px;
+            }
+
+            .timeline {
+                min-width: 700px;
+            }
+
+            .timeline-content {
+                width: 140px;
+                padding: 18px 12px;
+            }
+
+            .timeline-year {
+                font-size: 1.2rem;
+            }
+
+            .timeline-title {
+                font-size: 0.8rem;
+            }
+
+            .timeline-item:nth-child(odd) .timeline-content {
+                top: -160px;
+            }
+        }
+
+        /* Scrollbar styling */
+        .timeline-container::-webkit-scrollbar {
+            height: 8px;
+        }
+
+        .timeline-container::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+        }
+
+        .timeline-container::-webkit-scrollbar-thumb {
+            background: rgba(255, 255, 255, 0.3);
+            border-radius: 10px;
+        }
+
+        .timeline-container::-webkit-scrollbar-thumb:hover {
+            background: rgba(255, 255, 255, 0.5);
+        }
+
+        /* Animation */
+        @keyframes fadeInScale {
+            from {
+                opacity: 0;
+                transform: scale(0.8);
+            }
+            to {
+                opacity: 1;
+                transform: scale(1);
+            }
+        }
+
+        .timeline-item {
+            animation: fadeInScale 0.6s ease forwards;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Paris Agreement Timeline</h1>
+        
+        <div class="timeline-container">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2015</div>
+                        <div class="timeline-title">Paris Agreement Adopted</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2015-2016</div>
+                        <div class="timeline-title">First NDCs Submitted</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2016</div>
+                        <div class="timeline-title">Paris Agreement Enters Force</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020-2021</div>
+                        <div class="timeline-title">Second Round of NDCs</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-title">Global Stocktake Concluded</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2025</div>
+                        <div class="timeline-title">Third Round of NDCs Due</div>
+                    </div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+## Alternative Version - Simpler Layout (All Items on Top)
+
+If you prefer all items above the line for easier reading:
+
+```html
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Paris Agreement Timeline - Simple Horizontal</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #0f2027 0%, #203a43 50%, #2c5364 100%);
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            padding: 40px 20px;
+        }
+
+        .container {
+            width: 100%;
+            max-width: 1400px;
+        }
+
+        h1 {
+            text-align: center;
+            color: white;
+            margin-bottom: 80px;
+            font-size: 3rem;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.3);
+        }
+
+        .timeline-wrapper {
+            overflow-x: auto;
+            padding: 20px;
+        }
+
+        .timeline {
+            display: flex;
+            position: relative;
+            min-width: 1100px;
+            padding: 0 50px;
+        }
+
+        /* Horizontal line */
+        .timeline::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 4px;
+            background: linear-gradient(to right, 
+                transparent 0%, 
+                #4CAF50 10%, 
+                #4CAF50 90%, 
+                transparent 100%);
+        }
+
+        .timeline-item {
+            flex: 1;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            position: relative;
+            padding-bottom: 40px;
+        }
+
+        .timeline-content {
+            background: white;
+            padding: 30px 20px;
+            border-radius: 15px;
+            margin-bottom: 30px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            min-height: 140px;
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            width: 90%;
+        }
+
+        .timeline-content:hover {
+            transform: translateY(-10px);
+            box-shadow: 0 15px 40px rgba(76, 175, 80, 0.4);
+        }
+
+        .timeline-year {
+            font-size: 1.8rem;
+            font-weight: bold;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+            margin-bottom: 12px;
+            text-align: center;
+        }
+
+        .timeline-title {
+            font-size: 1rem;
+            color: #333;
+            font-weight: 600;
+            line-height: 1.5;
+            text-align: center;
+        }
+
+        /* Connector */
+        .timeline-connector {
+            width: 2px;
+            height: 30px;
+            background: rgba(255, 255, 255, 0.5);
+            margin-bottom: 0;
+        }
+
+        /* Timeline dot */
+        .timeline-dot {
+            width: 20px;
+            height: 20px;
+            background: #4CAF50;
+            border: 4px solid white;
+            border-radius: 50%;
+            box-shadow: 0 0 0 4px rgba(76, 175, 80, 0.3),
+                        0 4px 12px rgba(0, 0, 0, 0.4);
+            transition: all 0.3s ease;
+            position: relative;
+            z-index: 2;
+        }
+
+        .timeline-item:hover .timeline-dot {
+            transform: scale(1.4);
+            box-shadow: 0 0 0 8px rgba(76, 175, 80, 0.4),
+                        0 6px 20px rgba(0, 0, 0, 0.5);
+        }
+
+        /* Responsive */
+        @media (max-width: 768px) {
+            h1 {
+                font-size: 2rem;
+                margin-bottom: 50px;
+            }
+
+            .timeline {
+                min-width: 900px;
+            }
+
+            .timeline-content {
+                padding: 25px 15px;
+                min-height: 120px;
+            }
+
+            .timeline-year {
+                font-size: 1.5rem;
+            }
+
+            .timeline-title {
+                font-size: 0.9rem;
+            }
+        }
+
+        /* Custom scrollbar */
+        .timeline-wrapper::-webkit-scrollbar {
+            height: 10px;
+        }
+
+        .timeline-wrapper::-webkit-scrollbar-track {
+            background: rgba(255, 255, 255, 0.1);
+            border-radius: 10px;
+            margin: 0 20px;
+        }
+
+        .timeline-wrapper::-webkit-scrollbar-thumb {
+            background: linear-gradient(to right, #667eea, #764ba2);
+            border-radius: 10px;
+        }
+
+        .timeline-wrapper::-webkit-scrollbar-thumb:hover {
+            background: linear-gradient(to right, #764ba2, #667eea);
+        }
+
+        /* Animations */
+        @keyframes slideUp {
+            from {
+                opacity: 0;
+                transform: translateY(50px);
+            }
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        .timeline-item {
+            animation: slideUp 0.6s ease forwards;
+            opacity: 0;
+        }
+
+        .timeline-item:nth-child(1) { animation-delay: 0.1s; }
+        .timeline-item:nth-child(2) { animation-delay: 0.2s; }
+        .timeline-item:nth-child(3) { animation-delay: 0.3s; }
+        .timeline-item:nth-child(4) { animation-delay: 0.4s; }
+        .timeline-item:nth-child(5) { animation-delay: 0.5s; }
+        .timeline-item:nth-child(6) { animation-delay: 0.6s; }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <h1>🌍 Paris Agreement Timeline</h1>
+        
+        <div class="timeline-wrapper">
+            <div class="timeline">
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2015</div>
+                        <div class="timeline-title">Paris Agreement Adopted</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2015-2016</div>
+                        <div class="timeline-title">First NDCs Submitted</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2016</div>
+                        <div class="timeline-title">Paris Agreement Enters Force</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2020-2021</div>
+                        <div class="timeline-title">Second Round of NDCs</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2023</div>
+                        <div class="timeline-title">Global Stocktake Concluded</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-dot"></div>
+                </div>
+
+                <div class="timeline-item">
+                    <div class="timeline-content">
+                        <div class="timeline-year">2025</div>
+                        <div class="timeline-title">Third Round of NDCs Due</div>
+                    </div>
+                    <div class="timeline-connector"></div>
+                    <div class="timeline-dot"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
+```
+
+## Key Features:
+
+✅ **Horizontal Layout** - Perfect for presentations
+✅ **Two Versions:**
+   - **Version 1:** Alternating top/bottom (zigzag pattern)
+   - **Version 2:** All items on top (cleaner for slides)
+
+✅ **Presentation-Ready:**
+   - Large, readable text
+   - Smooth animations
+   - Professional color scheme
+   - Hover effects for interactivity
+
+✅ **Responsive:**
+   - Horizontal scroll on smaller screens
+   - Maintains layout integrity
+   - Custom scrollbar styling
+
+Choose the version that best fits your presentation style!
